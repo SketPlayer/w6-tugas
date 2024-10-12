@@ -104,8 +104,13 @@ const searchComments = async () => {
       return fetchComments()
     }
 
+    const token = 'Vcb6lm6LkMow49uX-Pk731nAnOvbS3'; // Use search-comment token
+
     const response = await $fetch('/api/search-comment', {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the header
+      },
       query: { search: searchQuery.value }
     })
 
