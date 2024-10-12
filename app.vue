@@ -40,7 +40,8 @@
             <h3>{{ comment.name }}</h3>
             <small>{{ comment.email }}</small>
           </header>
-          <div v-html="comment.comment"></div>
+          <!-- Escape HTML and render as plain text -->
+          <div v-html="escapeHtml(comment.comment)"></div>
         </article>
       </section>
     </div>
@@ -58,6 +59,16 @@ const form = ref({
 
 const comments = ref([])
 const searchQuery = ref('')
+
+// Function to escape HTML characters
+const escapeHtml = (unsafe) => {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 const fetchComments = async () => {
   try {
