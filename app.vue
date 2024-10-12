@@ -61,9 +61,14 @@ const searchQuery = ref('')
 
 const fetchComments = async () => {
   try {
+    const token = '4cD2fG8jR9wQpY3s-SAxSFefgeaDS2'; // Use get-comments token
+
     const response = await $fetch('/api/get-comments', {
-      method: 'GET'
-    })
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the header
+      },
+    });
     comments.value = response
   } catch (error) {
     console.error('Failed to fetch comments:', error)
@@ -72,10 +77,15 @@ const fetchComments = async () => {
 
 const addComment = async () => {
   try {
-    await $fetch('/api/add-comment', {
+    const token = 'Zx7sBqV1kJ6mH4nT-MncqW35TFWdzx'; // Use add-comment token
+
+    const response = await $fetch('/api/add-comment', {
       method: 'POST',
-      body: form.value
-    })
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the header
+      },
+      body: form.value,
+    });
 
     form.value = {
       name: '',
