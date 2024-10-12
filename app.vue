@@ -40,7 +40,7 @@
             <h3>{{ comment.name }}</h3>
             <small>{{ comment.email }}</small>
           </header>
-          <div v-html="comment.comment"></div>
+          <div v-text="comment.comment"></div> <!-- Change to v-text -->
         </article>
       </section>
     </div>
