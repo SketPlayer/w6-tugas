@@ -21,14 +21,18 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const result = await prisma.$queryRawUnsafe(
-      `SELECT * FROM GuestbookEntry WHERE comment LIKE '%${search}%'`
-    );
+    // Using Prisma's query builder to avoid SQL Injection
+    const result = await prisma.guestbookEntry.findMany({
+      where: {
+        comment: {
+          contains: search,  // Searching for comments that contain the search term
+        },
+      },
+    });
 
     return result;
   } catch (e) {
-    console.error('Error executing SQL query:', e);
-    return { error: 'Error executing SQL query' };
+    console.error('Error executing query:', e);
+    return { error: 'Error executing query' };
   }
 });
-
